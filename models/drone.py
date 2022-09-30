@@ -26,8 +26,8 @@ class Medication (BaseModel):
 
 class Drone(BaseModel):
     serial_number : str = Field(..., max_length=100)
-    model: Model = Field(...,default=None)
+    model: Model = Field(...)
     weigth_limit: float = Field(..., gt=0, le=500)
     battery_capacity: int = Field(..., gt=0, le=100, )
-    state : State = Field(..., default=None)
+    state : State = Field(...)
     medications : Optional[list[Medication]]
