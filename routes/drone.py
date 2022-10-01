@@ -6,6 +6,6 @@ drone_router = APIRouter(
 )
 
 
-@drone_router.post("/drone/new")
+@drone_router.post("/new")
 async def register_drone(drone : Drone = Body(...)):
     return drone

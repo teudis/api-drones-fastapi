@@ -4,6 +4,7 @@ from fastapi.responses import RedirectResponse
 
 
 from routes.drone import drone_router
+from routes.medication import medication_router
 
 import uvicorn
 
@@ -11,6 +12,7 @@ import uvicorn
 app = FastAPI()
 # Register routes
 app.include_router(drone_router, prefix="/drone")
+app.include_router(medication_router, prefix="/medication")
 
 @app.on_event("startup")
 def on_startup():
