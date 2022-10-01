@@ -27,7 +27,8 @@ class Medication (SQLModel, table=True):
     image :str
 
 class MedicationUpate (SQLModel):
-    """Class Update Model Medication"""   
+    """Class Update Model Medication"""  
+    id: int = Field(default=None, primary_key=True)
     name : str
     weight : float
     code : str
