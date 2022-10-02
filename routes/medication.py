@@ -1,7 +1,10 @@
+from hashlib import new
 from select import select
-from fastapi import APIRouter, Body, Depends, HTTPException,Request, status
+from fastapi import APIRouter, HTTPException, status, UploadFile
+from fastapi import Body, Depends, File 
 from typing import List
 from models.drone import Medication, MedicationUpate
+import shutil
 
 from database.connection import get_session
 from sqlmodel  import select
@@ -10,11 +13,21 @@ medication_router = APIRouter(
     tags=["medication"]
 )
 
+
 @medication_router.post("/new")
 async def register_medication(
-    new_medication : Medication = Body(...),
+    name: str,
+    weight: str,
+    code: str,
+    file : UploadFile = File(...),
     session=Depends(get_session)
     ):
+
+    with open('media/'+ file.filename,'wb') as image:
+        shutil.copyfileobj(file.file,image)
+    
+    url = str("media/" + file.filename) 
+    new_medication = Medication(name=name, weight=weight, code=code,image=url)      
     session.add(new_medication)
     session.commit()
     session.refresh(new_medication)

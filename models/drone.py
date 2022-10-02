@@ -17,21 +17,31 @@ class State(Enum):
     DELIVERED = "DELIVERED"
     RETURNING = "RETURNING"
 
-
 class Medication (SQLModel, table=True):
     """Class Model Medication"""
-    id: int = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
     name : str
     weight : float
     code : str
-    image :str
+    image : Optional[str]
 
+   
 class MedicationUpate (SQLModel):
     """Class Update Model Medication"""     
     name : str
     weight : float
     code : str
-    image :str
+    image : Optional[str]
+
+    class Config:
+        arbitrary_types_allowed = True
+        schema_extra = {
+        "example": {
+        "name": "Paracetamol",
+        "weight": "10",   
+        "code": "K45R"
+         }
+        }
 
 class Drone(SQLModel, table=True):
     """Class Model Drone"""
