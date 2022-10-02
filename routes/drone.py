@@ -64,3 +64,7 @@ async def delete_drone(id: int, session=Depends(get_session)):
         return {
         "message": "Drone was deleted successfully"
         }
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="Drone with supplied ID does not exist"
+    )
