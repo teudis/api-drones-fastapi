@@ -56,3 +56,18 @@ async def update_medication(
         status_code=status.HTTP_404_NOT_FOUND,
         detail="Medication with supplied ID does not exist"
     )
+
+
+@medication_router.delete("/delete/{id}")
+async def delete_medication(id:int, sesion=Depends(get_session)):
+    medication = sesion.get(Medication, id)
+    if medication:
+        sesion.delete(medication)
+        sesion.commit()
+        return {
+        "message": "Medication was deleted successfully"
+        }
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="Medication with supplied ID does not exist"
+    )
