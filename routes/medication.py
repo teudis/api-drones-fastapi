@@ -59,11 +59,11 @@ async def update_medication(
 
 
 @medication_router.delete("/delete/{id}")
-async def delete_medication(id:int, sesion=Depends(get_session)):
-    medication = sesion.get(Medication, id)
+async def delete_medication(id:int, session=Depends(get_session)):
+    medication = session.get(Medication, id)
     if medication:
-        sesion.delete(medication)
-        sesion.commit()
+        session.delete(medication)
+        session.commit()
         return {
         "message": "Medication was deleted successfully"
         }
